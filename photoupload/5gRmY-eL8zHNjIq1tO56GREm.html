@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.w3.org/1999/xhtml" prefix="" lang="en-US">
+<head itemscope itemtype="http://schema.org/WebSite"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+<meta charset="UTF-8">
+
+<!--[if IE ]>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<![endif]-->
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="icon" href="https://loveshayariimages.in/wp-content/uploads/2022/05/favi.png" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta itemprop="name" content="12,000 Shayari Images ( हिंदी शायरी ) Wallpaper ideas in 2021" />
+<link rel="pingback" href="https://loveshayariimages.in/xmlrpc.php" />
+
+<meta name="description" content="Find Out Free Girlfriend &amp; Boyfriend Whatsapp DP Profile Images Pics Pictures , Girlfriend &amp; Boyfriend Whatsapp DP Wallpaper photo Download ." />
+<meta name="keywords" content="girlfriend &amp; boyfriend whatsapp dp , girlfriend &amp; boyfriend whatsapp dp pics , girlfriend &amp; boyfriend whatsapp dp wallpaper , girlfriend &amp; boyfriend whatsapp dp photo ." />
+
+<title>[ New 2022 ] Girlfriend &amp; Boyfriend Whatsapp DP Images HD</title><style id="rocket-critical-css">html,body,div,span,h1,h2,p,a,img,ins,i,ul,li,article,aside,header,nav{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}html{-webkit-font-smoothing:antialiased}article,aside,header,nav{display:block}ul{list-style:none}input{margin:0;font-weight:inherit}:focus{outline:0}img{max-width:100%}i{font-style:italic}body{font:14px/1.5 Noto Sans,sans-serif;color:#555;background-color:#ebebeb;overflow-x:hidden}#page,.container{position:relative;margin-right:auto;margin-left:auto}h1,h2{font-weight:700;margin-bottom:12px;color:#444}h1{font-size:28px;line-height:1.4}h2{line-height:1.4}p{margin-bottom:20px}a{text-decoration:none;color:#0274be}a:link,a:visited{text-decoration:none}.main-container{width:100%;margin:0 auto;clear:both;display:block;padding:0}#page,.container{max-width:1152px;min-width:240px}#page{padding-top:35px;min-height:100px;float:none;clear:both}header{float:left;width:100%;position:relative}.main-header{position:relative;float:left;min-width:100%;width:100%;z-index:99;background:#fff}.main-header .container{background:#fff}#header{position:relative;min-width:100%;width:100%;float:left;margin:0;padding:0;background:#222}div#regular-header{overflow:hidden;clear:both;padding:0}#logo a{text-transform:uppercase;float:left;line-height:1;color:#222}#logo img{float:left}.logo-wrap{margin:49px 0;overflow:hidden;float:left}#primary-navigation .navigation .menu{float:left;margin-right:20px}div.header-social-icons{float:right;background:rgba(0,0,0,.07);position:relative;margin-left:35px}div.header-social-icons:before{content:"";position:absolute;width:0;height:0;border-style:solid;border-width:46px 30px 0 0;border-color:transparent rgba(0,0,0,.07) transparent transparent;left:-30px}#primary-navigation .header-social-icons a,.header-social-icons a{float:left;font-size:18px;padding:14px 10px}#primary-navigation .header-social-icons a:last-child{padding-right:15px}#primary-navigation .navigation>ul>li:first-child>a{padding-left:0}.regular_header div#primary-nav{float:left;width:100%;border-bottom:1px solid rgba(0,0,0,.07)}#primary-navigation{float:right}.regular_header #primary-navigation{float:left;width:100%}#secondary-navigation{display:block;float:right}.regular_header #secondary-navigation{float:left;width:100%}#secondary-navigation a{text-align:left;text-decoration:none;padding:24px 25px}#primary-navigation a{padding:17px 15px 16px;line-height:1}.navigation{float:left;position:relative;width:100%}.navigation ul{margin:0 auto}.navigation ul li{float:left;line-height:24px;position:relative}.navigation ul li a,.navigation ul li a:link,.navigation ul li a:visited{display:inline-block}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.clearfix{*zoom:1}a#pull{display:none}.article{width:67.015%;float:left;margin-bottom:35px;padding:3.994%;background:#fff;box-sizing:border-box;box-shadow:0 0 1px 0 rgba(50,50,50,.1)}#content_box{float:left;width:100%}.post{float:left;width:100%}.single_post{width:100%;float:left;margin-bottom:30px}.title{clear:both}.single-title{float:left;width:100%}article header{float:left;width:100%}.single_post header{width:100%}input{padding:8px 12px;font-size:14px;color:#444;border:1px solid #e4e4e4;font-family:inherit}::-webkit-input-placeholder{color:#999}:-moz-placeholder{color:#999}::-moz-placeholder{color:#999}:-ms-input-placeholder{color:#999}:input-placeholder{color:#999}input::-webkit-input-speech-button{margin-right:14px;margin-left:4px}.breadcrumb,.breadcrumb>div,.breadcrumb .fa-caret-right,.breadcrumb .root a{float:none}.breadcrumb a{text-transform:capitalize}.breadcrumb{clear:both;padding:0;overflow:hidden;margin-bottom:15px}.breadcrumb>div{padding:0 5px;overflow:hidden;float:none;display:inline-block}.breadcrumb .fa-caret-right{padding:0}.breadcrumb .root{padding:0}.breadcrumb .fa-caret-right{padding:0}.breadcrumb>div{overflow:visible}#sidebar p{line-height:20px}.sidebar.c-4-12{float:right;width:29.5%;max-width:340px}#sidebar .widget{margin-bottom:27px;float:left;clear:both;width:100%;background:#fff;padding:20px;box-sizing:border-box;box-shadow:0 0 1px 0 rgba(50,50,50,.1)}#commentform input{padding:11px;font-weight:inherit}#cancel-comment-reply-link{float:right;line-height:24px;margin-top:0}#cancel-comment-reply-link{color:#ee210b;margin-bottom:-20px;text-decoration:underline;z-index:100;position:relative}html{overflow-x:hidden;-webkit-text-size-adjust:100%}.main-container{max-width:100%}@media screen and (max-width:1152px){#page,.container{max-width:96%}img{height:auto!important}}@media screen and (max-width:1024px){div.header-social-icons{margin-left:20px}#primary-navigation a{padding:17px 5px 16px}}@media screen and (max-width:960px){#secondary-navigation{left:0}img{max-width:100%;height:auto!important}}@media screen and (max-width:865px){#logo a,#logo img{float:none;letter-spacing:0}.logo-wrap{margin-bottom:10px;margin-top:0;width:100%;margin-top:20px;text-align:center}div.header-social-icons{float:left;width:100%;background:#333;padding-left:10px;box-sizing:border-box}.header-social-icons a{color:#fff}.navigation{width:100%;border:none;display:none}#secondary-navigation{width:100%!important;position:relative!important}.navigation .menu a{color:#fff!important;background:0 0}.navigation .menu{display:block!important;float:none;background:0 0;margin-bottom:0}nav{height:auto}#header nav li{width:100%!important;float:left;position:relative}.navigation ul li:after{display:none}.navigation ul li:before{display:none}#header nav li a{border-bottom:1px solid rgba(0,0,0,.2)!important;width:100%!important;box-sizing:border-box}#header nav a{text-align:left;width:100%;text-indent:25px}a#pull{display:block;width:100%;position:relative;color:#fff;margin-left:-2.01%;margin-right:-2.01%;padding:10px 2.02%;text-indent:0}a#pull:after{content:"\f0c9";display:inline-block;position:absolute;right:15px;top:10px;font-family:FontAwesome}.main-container{position:relative;left:0}.navigation.mobile-menu-wrapper{display:block;position:fixed;top:0;left:-300px;width:300px;height:100%;background-color:#222;border-right:1px solid rgba(0,0,0,.2);overflow:auto;-webkit-backface-visibility:hidden;box-sizing:border-box;overflow-x:hidden}.navigation ul li{width:100%;display:block}.navigation ul li a{padding:9px 0!important;width:100%;border:none}div.header-social-icons{display:block!important}div.header-social-icons:before{display:none}div.header-social-icons{margin-left:0;padding-left:15px}}@media screen and (max-width:720px){#secondary-navigation a{padding-top:10px!important;padding-bottom:10px!important}.article{width:100%}#content_box{padding-right:0;padding-left:0!important}.sidebar.c-4-12{float:none;width:100%!important;margin:0 auto}}@media screen and (max-width:550px){.single-title{font-size:24px!important}}@media screen and (max-width:480px){.navigation{border-bottom:0}.navigation{margin-top:0;margin-bottom:0}#secondary-navigation{width:100%;height:35px}}@media screen and (max-width:400px){article header{overflow:hidden}.single-title{font-size:20px!important;line-height:1.4}}@media screen and (max-width:320px){.navigation li{display:block;float:none;width:100%}.navigation li a{border-bottom:1px solid #576979}}</style><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3Anormal%7CRaleway%3A500%7CRaleway%3A700%7CRoboto%20Slab%3A300&#038;subset=latin&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3Anormal%7CRaleway%3A500%7CRaleway%3A700%7CRoboto%20Slab%3A300&#038;subset=latin&#038;display=swap" media="print" onload="this.media='all'" /><noscript><link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3Anormal%7CRaleway%3A500%7CRaleway%3A700%7CRoboto%20Slab%3A300&#038;subset=latin&#038;display=swap" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" /></noscript><link rel="preload" href="https://loveshayariimages.in/wp-content/cache/min/1/2f2c1e68875c8c32acb36897437591b2.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media="all" data-minify="1" />
+<meta name='robots' content='max-image-preview:large' />
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/,'js' );</script><link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="12,000 Shayari Images ( हिंदी शायरी ) Wallpaper ideas in 2021 &raquo; Feed" href="https://loveshayariimages.in/feed/" />
+<link rel="alternate" type="application/rss+xml" title="12,000 Shayari Images ( हिंदी शायरी ) Wallpaper ideas in 2021 &raquo; Comments Feed" href="https://loveshayariimages.in/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="12,000 Shayari Images ( हिंदी शायरी ) Wallpaper ideas in 2021 &raquo; [ New 2022 ] Girlfriend &#038; Boyfriend Whatsapp DP Images HD Comments Feed" href="https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/feed/" />
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<style id='schema-stylesheet-inline-css' type='text/css'>
+
+		body {background-color:#eeeeee;}
+		.main-header.regular_header, .regular_header #primary-navigation .navigation ul ul li {background-color:#ffffff;}
+		.main-header.logo_in_nav_header, .logo_in_nav_header #primary-navigation .navigation ul ul li {background-color:#ffffff;}
+		body {background-color:#eeeeee;}
+		.pace .pace-progress, #mobile-menu-wrapper ul li a:hover, .pagination .page-numbers.current, .pagination a:hover, .single .pagination a:hover .current { background: #0274BE; }
+		.postauthor h5, .textwidget a, .pnavigation2 a, .sidebar.c-4-12 a:hover, footer .widget li a:hover, .sidebar.c-4-12 a:hover, .reply a, .title a:hover, .post-info a:hover, .widget .thecomment, #tabber .inside li a:hover, .readMore a:hover, .fn a, a, a:hover, #secondary-navigation .navigation ul li a:hover, .readMore a, #primary-navigation a:hover, #secondary-navigation .navigation ul .current-menu-item a, .widget .wp_review_tab_widget_content a, .sidebar .wpt_widget_content a { color:#0274BE; }
+		a#pull, #commentform input#submit, #mtscontact_submit, .mts-subscribe input[type='submit'], .widget_product_search input[type='submit'], #move-to-top:hover, .currenttext, .pagination a:hover, .pagination .nav-previous a:hover, .pagination .nav-next a:hover, #load-posts a:hover, .single .pagination a:hover .currenttext, .single .pagination > .current .currenttext, #tabber ul.tabs li a.selected, .tagcloud a, .wp-block-tag-cloud a, .navigation ul .sfHover a, .woocommerce a.button, .woocommerce-page a.button, .woocommerce button.button, .woocommerce-page button.button, .woocommerce input.button, .woocommerce-page input.button, .woocommerce #respond input#submit, .woocommerce-page #respond input#submit, .woocommerce #content input.button, .woocommerce-page #content input.button, .woocommerce .bypostauthor:after, #searchsubmit, .woocommerce nav.woocommerce-pagination ul li span.current, .woocommerce-page nav.woocommerce-pagination ul li span.current, .woocommerce #content nav.woocommerce-pagination ul li span.current, .woocommerce-page #content nav.woocommerce-pagination ul li span.current, .woocommerce nav.woocommerce-pagination ul li a:hover, .woocommerce-page nav.woocommerce-pagination ul li a:hover, .woocommerce #content nav.woocommerce-pagination ul li a:hover, .woocommerce-page #content nav.woocommerce-pagination ul li a:hover, .woocommerce nav.woocommerce-pagination ul li a:focus, .woocommerce-page nav.woocommerce-pagination ul li a:focus, .woocommerce #content nav.woocommerce-pagination ul li a:focus, .woocommerce-page #content nav.woocommerce-pagination ul li a:focus, .woocommerce a.button, .woocommerce-page a.button, .woocommerce button.button, .woocommerce-page button.button, .woocommerce input.button, .woocommerce-page input.button, .woocommerce #respond input#submit, .woocommerce-page #respond input#submit, .woocommerce #content input.button, .woocommerce-page #content input.button, .latestPost-review-wrapper, .latestPost .review-type-circle.latestPost-review-wrapper, #wpmm-megamenu .review-total-only, .sbutton, #searchsubmit, .widget .wpt_widget_content #tags-tab-content ul li a, .widget .review-total-only.large-thumb, #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button, .woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover, .woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt, .woocommerce-account .woocommerce-MyAccount-navigation li.is-active, .woocommerce-product-search button[type='submit'], .woocommerce .woocommerce-widget-layered-nav-dropdown__submit, .wp-block-search .wp-block-search__button { background-color:#0274BE; color: #fff!important; }
+		.related-posts .title a:hover, .latestPost .title a { color: #0274BE; }
+		.navigation #wpmm-megamenu .wpmm-pagination a { background-color: #0274BE!important; }
+		#header .sbutton, #secondary-navigation .ajax-search-results li a:hover { color: #0274BE!important; }
+		footer {background-color:#222222; }
+		
+		.copyrights { background-color: #ffffff; }
+		.flex-control-thumbs .flex-active{ border-top:3px solid #0274BE;}
+		.wpmm-megamenu-showing.wpmm-light-scheme { background-color:#0274BE!important; }
+		.regular_header #header {background-color:#222222; }
+		.logo_in_nav_header #header {background-color:#222222; }
+		
+		.shareit { top: 282px; left: auto; margin: 0 0 0 -135px; width: 90px; position: fixed; padding: 5px; border:none; border-right: 0;}
+		.share-item {margin: 2px;} .shareit.modern, .shareit.circular { margin: 0 0 0 -146px }
+		
+		.bypostauthor > div { overflow: hidden; padding: 3%; background: #222; width: 100%; color: #AAA; box-sizing: border-box; }
+		.bypostauthor:after { content: "\f044"; position: absolute; font-family: fontawesome; right: 0; top: 0; padding: 1px 10px; color: #535353; font-size: 32px; }
+		
+		@media screen and (max-width:865px) { #catcher { height: 0px!important } .sticky-navigation-active { position: relative!important; top: 0px!important } }
+		
+	
+</style>
+<style id='generate-secondary-nav-inline-css' type='text/css'>
+.secondary-navigation{background-color:#636363;}.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle,.secondary-menu-bar-items .menu-bar-item > a{color:#ffffff;}.secondary-navigation .secondary-menu-bar-items{color:#ffffff;}button.secondary-menu-toggle:hover,button.secondary-menu-toggle:focus{color:#ffffff;}.widget-area .secondary-navigation{margin-bottom:20px;}.secondary-navigation ul ul{background-color:#303030;top:auto;}.secondary-navigation .main-nav ul ul li a{color:#ffffff;}.secondary-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .secondary-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .secondary-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .secondary-menu-bar-items .menu-bar-item:hover > a{color:#ffffff;background-color:#303030;}.secondary-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.secondary-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a,.secondary-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a{color:#ffffff;background-color:#474747;}.secondary-navigation .main-nav ul li[class*="current-menu-"] > a{color:#222222;background-color:#ffffff;}.secondary-navigation .main-nav ul ul li[class*="current-menu-"] > a{color:#ffffff;background-color:#474747;}@media (max-width: 768px) {.secondary-menu-bar-items .menu-bar-item:hover > a{background: none;color: #ffffff;}}
+</style>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-includes/js/jquery/jquery.min.js' id='jquery-core-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-includes/js/jquery/jquery-migrate.min.js' id='jquery-migrate-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-content/plugins/all-in-one-schemaorg-rich-snippets/js/jquery.rating.min.js' id='jquery_rating-js' defer></script>
+<link rel="https://api.w.org/" href="https://loveshayariimages.in/wp-json/" /><link rel="alternate" type="application/json" href="https://loveshayariimages.in/wp-json/wp/v2/posts/18503" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://loveshayariimages.in/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://loveshayariimages.in/wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 5.7.6" />
+<link rel="canonical" href="https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/" />
+<link rel='shortlink' href='https://loveshayariimages.in/?p=18503' />
+<link rel="alternate" type="application/json+oembed" href="https://loveshayariimages.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Floveshayariimages.in%2Fgirlfriend-boyfriend-whatsapp-dp%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://loveshayariimages.in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Floveshayariimages.in%2Fgirlfriend-boyfriend-whatsapp-dp%2F&#038;format=xml" />
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">var ajaxurl = "https://loveshayariimages.in/wp-admin/admin-ajax.php";</script>
+<style type="text/css">
+#logo a { font-family: 'Roboto Slab'; font-weight: normal; font-size: 32px; color: #222;text-transform: uppercase; }
+#primary-navigation a, .mts-cart { font-family: 'Raleway'; font-weight: 500; font-size: 13px; color: #777; }
+#secondary-navigation a { font-family: 'Raleway'; font-weight: 700; font-size: 16px; color: #fff;text-transform: uppercase; }
+.latestPost .title a { font-family: 'Roboto Slab'; font-weight: 300; font-size: 38px; color: #0274BE; }
+.single-title { font-family: 'Roboto Slab'; font-weight: 300; font-size: 38px; color: #222; }
+body { font-family: 'Raleway'; font-weight: 500; font-size: 16px; color: #444444; }
+#sidebar .widget h3 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 20px; color: #222222;text-transform: uppercase; }
+#sidebar .widget { font-family: 'Raleway'; font-weight: 500; font-size: 16px; color: #444444; }
+.footer-widgets h3 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 18px; color: #ffffff;text-transform: uppercase; }
+.f-widget a, footer .wpt_widget_content a, footer .wp_review_tab_widget_content a, footer .wpt_tab_widget_content a, footer .widget .wp_review_tab_widget_content a { font-family: 'Raleway'; font-weight: 500; font-size: 16px; color: #999999; }
+.footer-widgets, .f-widget .top-posts .comment_num, footer .meta, footer .twitter_time, footer .widget .wpt_widget_content .wpt-postmeta, footer .widget .wpt_comment_content, footer .widget .wpt_excerpt, footer .wp_review_tab_widget_content .wp-review-tab-postmeta, footer .advanced-recent-posts p, footer .popular-posts p, footer .category-posts p { font-family: 'Raleway'; font-weight: 500; font-size: 16px; color: #777777; }
+#copyright-note { font-family: 'Raleway'; font-weight: 500; font-size: 14px; color: #7e7d7d; }
+h1 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 28px; color: #222222; }
+h2 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 24px; color: #222222; }
+h3 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 22px; color: #222222; }
+h4 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 20px; color: #222222; }
+h5 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 18px; color: #222222; }
+h6 { font-family: 'Roboto Slab'; font-weight: normal; font-size: 16px; color: #222222; }
+</style>
+<script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script>
+
+<script type="rocketlazyloadscript" async src="https://www.googletagmanager.com/gtag/js?id=UA-219155818-1"></script>
+<script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-219155818-1');
+</script>
+</head>
+<body id="blog" class="post-template-default single single-post postid-18503 single-format-standard wp-custom-logo wp-embed-responsive main post-image-above-header post-image-aligned-center secondary-nav-above-header secondary-nav-aligned-right sticky-menu-fade sticky-enabled mobile-sticky-menu default cslayout" itemscope itemtype="http://schema.org/WebPage">
+<div class="main-container">
+<header id="site-header" class="main-header regular_header" role="banner" itemscope itemtype="http://schema.org/WPHeader">
+<div id="primary-nav">
+<div class="container">
+<div id="primary-navigation" class="primary-navigation" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+<nav class="navigation clearfix">
+<ul id="menu-a" class="menu clearfix"><li id="menu-item-42972" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-42972"><a href="https://loveshayariimages.in/category/shayari-images/">Shayari</a>
+<ul class="sub-menu">
+<li id="menu-item-13147" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-13147"><a href="https://loveshayariimages.in">Love Shayari</a></li>
+</ul>
+</li>
+<li id="menu-item-22140" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-22140"><a href="https://loveshayariimages.in/sitemap/">Latest Shayari List</a></li>
+<li id="menu-item-42973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42973"><a href="https://loveshayariimages.in/category/good-morning/">Good Morning Images</a></li>
+<li id="menu-item-33451" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-33451"><a href="https://loveshayariimages.in/download-images-whatsapp-dp/">Whatsapp DP Images</a>
+<ul class="sub-menu">
+<li id="menu-item-19884" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19884"><a href="https://loveshayariimages.in/whatsapp-dp-new/">Whatsapp DP</a></li>
+</ul>
+</li>
+<li id="menu-item-42974" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42974"><a href="https://loveshayariimages.in/category/good-night-images/">Good Night Images</a></li>
+</ul> <div class="header-social-icons">
+<a href="#" class="header-facebook" target="_blank">
+<span class="fa fa-facebook"></span>
+</a>
+<a href="#" class="header-twitter" target="_blank">
+<span class="fa fa-twitter"></span>
+</a>
+<a href="#" class="header-youtube-play" target="_blank">
+<span class="fa fa-youtube-play"></span>
+</a>
+</div>
+</nav>
+</div>
+</div>
+</div>
+<div id="regular-header">
+<div class="container">
+<div class="logo-wrap">
+<h2 id="logo" class="image-logo" itemprop="headline">
+<a href="https://loveshayariimages.in">
+<img src="https://loveshayariimages.in/wp-content/uploads/2022/05/logo.png" alt="12,000 Shayari Images ( हिंदी शायरी ) Wallpaper ideas in 2021" width="462" height="87"></a>
+</h2>
+</div>
+<div class="widget-header"><script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div>
+</div>
+<div id="header">
+<div class="container">
+<div id="secondary-navigation" class="secondary-navigation" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+<a href="#" id="pull" class="toggle-mobile-menu">Menu</a>
+<nav class="navigation clearfix">
+<ul id="menu-a-1" class="menu clearfix"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-42972"><a href="https://loveshayariimages.in/category/shayari-images/">Shayari</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-13147"><a href="https://loveshayariimages.in">Love Shayari</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-22140"><a href="https://loveshayariimages.in/sitemap/">Latest Shayari List</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42973"><a href="https://loveshayariimages.in/category/good-morning/">Good Morning Images</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-33451"><a href="https://loveshayariimages.in/download-images-whatsapp-dp/">Whatsapp DP Images</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19884"><a href="https://loveshayariimages.in/whatsapp-dp-new/">Whatsapp DP</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42974"><a href="https://loveshayariimages.in/category/good-night-images/">Good Night Images</a></li>
+</ul> </nav>
+<nav class="navigation mobile-only clearfix mobile-menu-wrapper">
+<ul id="menu-a-2" class="menu clearfix"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-42972"><a href="https://loveshayariimages.in/category/shayari-images/">Shayari</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-13147"><a href="https://loveshayariimages.in">Love Shayari</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-22140"><a href="https://loveshayariimages.in/sitemap/">Latest Shayari List</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42973"><a href="https://loveshayariimages.in/category/good-morning/">Good Morning Images</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-33451"><a href="https://loveshayariimages.in/download-images-whatsapp-dp/">Whatsapp DP Images</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19884"><a href="https://loveshayariimages.in/whatsapp-dp-new/">Whatsapp DP</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42974"><a href="https://loveshayariimages.in/category/good-night-images/">Good Night Images</a></li>
+</ul> </nav>
+</div>
+</div>
+</div>
+</header>
+<div id="page" class="single">
+<article class="article clearfix">
+<div id="content_box">
+<div id="post-18503" class="g post post-18503 type-post status-publish format-standard hentry category-shayari-images">
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"><div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="root"><a href="https://loveshayariimages.in" itemprop="item"><span itemprop="name">Home</span><meta itemprop="position" content="1" /></a></div><div><i class="fa fa-caret-right"></i></div><div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="https://loveshayariimages.in/category/shayari-images/" itemprop="item"><span itemprop="name">Shayari Images</span><meta itemprop="position" content="2" /></a></div><div><i class="fa fa-caret-right"></i></div><div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">[ New 2022 ] Girlfriend &#038; Boyfriend Whatsapp DP Images HD</span><meta itemprop="position" content="3" /></div></div> <div class="single_post">
+<header>
+<h1 class="title single-title entry-title">[ New 2022 ] Girlfriend &#038; Boyfriend Whatsapp DP Images HD</h1>
+<div class="post-info">
+<span class="theauthor"><i class="fa fa-user"></i> <span><a href="https://loveshayariimages.in/author/admin/" title="Posts by Jyoti Rajput" rel="author">Jyoti Rajput</a></span></span>
+<span class="thetime date updated"><i class="fa fa-calendar"></i> <span>May 30, 2022</span></span>
+<span class="thecategory"><i class="fa fa-tags"></i> <a href="https://loveshayariimages.in/category/shayari-images/" title="View all posts in Shayari Images">Shayari Images</a></span>
+<span class="thecomment"><i class="fa fa-comments"></i> <a href="https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/#comments" itemprop="interactionCount">2 Comments</a></span>
+</div>
+</header>
+<div class="post-single-content box mark-links entry-content">
+<div class="thecontent">
+<div class='code-block code-block-1' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>In this Post We are Share Beautiful Whatsapp DP Images for Girlfriend , Love Image Wallpaper for Boyfriend  ,  HD Quality Girlfriend &amp; Boyfriend Whatsapp DP Photo Download , Girlfriend &amp; Boyfriend Whatsapp DP Photo for Facebook &amp; Whastapp Available for Download .</p>
+<p>We hope you enjoy Our Beautiful Collection .</p><div class='code-block code-block-5' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 style="text-align: center;">Girlfriend &amp; Boyfriend Whatsapp DP</h2>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/sad-whatsapp-dp-for-girls.jpg"><img loading="lazy" class="aligncenter wp-image-35444" title="sad whatsapp dp for girls" src="https://loveshayariimages.in/wp-content/uploads/2022/02/sad-whatsapp-dp-for-girls.jpg" alt="sad whatsapp dp for girls" width="775" height="775" /><div class='code-block code-block-2' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Sad-Girl-Whatsapp-Dp-Images-13.jpg"><img loading="lazy" class="aligncenter size-full wp-image-35445" title="Sad Girl Whatsapp Dp Images 13" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Sad-Girl-Whatsapp-Dp-Images-13.jpg" alt="Sad Girl Whatsapp Dp Images 13" width="780" height="962" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Quality-Sad-Girl-Dp-for-Whatsapp-Pics-Images-Download.jpg"><img loading="lazy" class="aligncenter wp-image-35446" title="Top Quality Sad Girl Dp for Whatsapp Pics Images Download" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Quality-Sad-Girl-Dp-for-Whatsapp-Pics-Images-Download.jpg" alt="Top Quality Sad Girl Dp for Whatsapp Pics Images Download" width="784" height="515" /><div class='code-block code-block-3' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-photo-for-download-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35448" title="Top Sad Couple Whatsapp Dp Images photo for download" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-photo-for-download-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images photo for download" width="793" height="1189" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-photo-free-download-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35453" title="Top Sad Couple Whatsapp Dp Images photo free download" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-photo-free-download-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images photo free download" width="789" height="740" /><div class='code-block code-block-4' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-photo-pics.jpg"><img loading="lazy" class="aligncenter wp-image-35459" title="Top Sad Couple Whatsapp Dp Images photo pics" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-photo-pics.jpg" alt="Top Sad Couple Whatsapp Dp Images photo pics" width="808" height="808" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-for-download-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35466" title="Top Sad Couple Whatsapp Dp Images pics for download" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-for-download-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images pics for download" width="816" height="1224" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-for-hd-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35484" title="Top Sad Couple Whatsapp Dp Images pics for hd" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-for-hd-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images pics for hd" width="816" height="801" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-free-hd-2.jpg"><img loading="lazy" class="aligncenter wp-image-35498" title="Top Sad Couple Whatsapp Dp Images pics free hd 2" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-free-hd-2.jpg" alt="Top Sad Couple Whatsapp Dp Images pics free hd 2" width="815" height="1225" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-free-hd-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35504" title="Top Sad Couple Whatsapp Dp Images pics free hd" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-free-hd-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images pics free hd" width="812" height="1218" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-photo.jpg"><img loading="lazy" class="aligncenter wp-image-35509" title="Top Sad Couple Whatsapp Dp Images pics photo" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pics-photo.jpg" alt="Top Sad Couple Whatsapp Dp Images pics photo" width="810" height="1215" /><div class='code-block code-block-6' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-for-free-hd.jpg"><img loading="lazy" class="aligncenter size-full wp-image-35511" title="Top Sad Couple Whatsapp Dp Images pictures for free hd" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-for-free-hd.jpg" alt="Top Sad Couple Whatsapp Dp Images pictures for free hd" width="744" height="992" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-free-download-hd.jpg"><img loading="lazy" class="aligncenter wp-image-35514" title="Top Sad Couple Whatsapp Dp Images pictures free download hd" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-free-download-hd.jpg" alt="Top Sad Couple Whatsapp Dp Images pictures free download hd" width="762" height="762" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-free-download-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35518" title="Top Sad Couple Whatsapp Dp Images pictures free download" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-free-download-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images pictures free download" width="773" height="1160" /></a></p>
+<p><a href="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-photo-2-scaled.jpg"><img loading="lazy" class="aligncenter wp-image-35522" title="Top Sad Couple Whatsapp Dp Images pictures photo 2" src="https://loveshayariimages.in/wp-content/uploads/2022/02/Top-Sad-Couple-Whatsapp-Dp-Images-pictures-photo-2-scaled.jpg" alt="Top Sad Couple Whatsapp Dp Images pictures photo 2" width="775" height="814" /></a></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18534" title="3Best Gf Bf Whatsapp DP Wallapper Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/3Best-Gf-Bf-Whatsapp-DP-Wallapper-Hd.jpg" alt="3Best Gf Bf Whatsapp DP Wallapper Hd" width="374" height="403" /><div class='code-block code-block-7' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>Also Check</p>
+<ul>
+<li><a href="https://loveshayariimages.in/whatsapp-dp-new/">WhatsApp DP</a></li>
+</ul>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18536" title="Best Gf Bf Whatsapp DP Download Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Download-Free.jpg" alt="Best Gf Bf Whatsapp DP Download Free" width="496" height="594" /></p>
+<p>&nbsp;</p>
+<p><a href="https://www.whatsappprofiledpimages.com/whatsapp-dp-pics/">Whatsapp Images</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18538" title="Best Gf Bf Whatsapp DP Download Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Download-Hd.jpg" alt="Best Gf Bf Whatsapp DP Download Hd" width="700" height="502" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18539" title="Best Gf Bf Whatsapp DP Download" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Download.jpg" alt="Best Gf Bf Whatsapp DP Download" width="600" height="564" /></p>
+<p><a href="https://www.whatsappprofiledpimages.com/sad-boy-dp/">Whatsapp Profile DP Images</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18541" title="Best Gf Bf Whatsapp DP Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Free.jpg" alt="Best Gf Bf Whatsapp DP Free" width="640" height="873" /></p>
+<p><a href="https://www.whatsappprofiledpimages.com/funny-profile-pictures-images/">Whatsapp profile DP Images</a></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18543" title="Best Gf Bf Whatsapp DP Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Hd.jpg" alt="Best Gf Bf Whatsapp DP Hd" width="624" height="524" /><div class='code-block code-block-8' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p><a href="https://www.whatsappimages.in/">whatsappimages.in</a></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18545" title="Best Gf Bf Whatsapp DP Images Download" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Download.jpg" alt="Best Gf Bf Whatsapp DP Images Download" width="1260" height="1000" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18547" title="Best Gf Bf Whatsapp DP Images Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Free.jpg" alt="Best Gf Bf Whatsapp DP Images Free" width="711" height="834" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18548" title="Best Gf Bf Whatsapp DP Images Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Hd.jpg" alt="Best Gf Bf Whatsapp DP Images Hd" width="668" height="737" /></p>
+<p>&nbsp;</p>
+<p><a href="https://loveshayariimages.in/crying-eyes-dp/">Crying Eye Whatsapp DP Wallpaper</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18550" title="Best Gf Bf Whatsapp DP Images Photo" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Photo.jpg" alt="Best Gf Bf Whatsapp DP Images Photo" width="500" height="574" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18552" title="Best Gf Bf Whatsapp DP Images Pics" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Pics.jpg" alt="Best Gf Bf Whatsapp DP Images Pics" width="500" height="542" /><div class='code-block code-block-9' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18554" title="Best Gf Bf Whatsapp DP Images Pictures" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Pictures.jpg" alt="Best Gf Bf Whatsapp DP Images Pictures" width="463" height="500" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18555" title="Best Gf Bf Whatsapp DP Images Wallpaper" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images-Wallpaper.jpg" alt="Best Gf Bf Whatsapp DP Images Wallpaper" width="774" height="960" /></p>
+<p><a href="https://loveshayariimages.in/single-boy-dp/">Single Boy Whatsapp DP Photo</a></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18558" title="Best Gf Bf Whatsapp DP Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Images.jpg" alt="Best Gf Bf Whatsapp DP Images" width="411" height="490" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18560" title="Best Gf Bf Whatsapp DP Photo Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Photo-Free.jpg" alt="Best Gf Bf Whatsapp DP Photo Free" width="214" height="225" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18561" title="Best Gf Bf Whatsapp DP Photo Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Photo-Hd.jpg" alt="Best Gf Bf Whatsapp DP Photo Hd" width="402" height="435" /><div class='code-block code-block-10' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18565" title="Best Gf Bf Whatsapp DP Photo" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Photo.jpg" alt="Best Gf Bf Whatsapp DP Photo" width="634" height="673" /></p>
+<p>&nbsp;</p>
+<p><a href="https://loveshayariimages.in/ahir-yadav-ji-whatsapp-dp/">Yadav Ji Whatsapp DP</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18567" title="Best Gf Bf Whatsapp DP Pics Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pics-Free.jpg" alt="Best Gf Bf Whatsapp DP Pics Free" width="540" height="747" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18570" title="Best Gf Bf Whatsapp DP Pics Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pics-Hd.jpg" alt="Best Gf Bf Whatsapp DP Pics Hd" width="719" height="809" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18572" title="Best Gf Bf Whatsapp DP Pics Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pics-Images.jpg" alt="Best Gf Bf Whatsapp DP Pics Images" width="446" height="574" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18574" title="Best Gf Bf Whatsapp DP Pics" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pics.jpg" alt="Best Gf Bf Whatsapp DP Pics" width="465" height="436" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18575" title="Best Gf Bf Whatsapp DP Pictures Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pictures-Free.jpg" alt="Best Gf Bf Whatsapp DP Pictures Free" width="395" height="373" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18577" title="Best Gf Bf Whatsapp DP Pictures Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pictures-Hd.jpg" alt="Best Gf Bf Whatsapp DP Pictures Hd" width="426" height="584" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18579" title="Best Gf Bf Whatsapp DP Pictures Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pictures-Images.jpg" alt="Best Gf Bf Whatsapp DP Pictures Images" width="415" height="391" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18581" title="Best Gf Bf Whatsapp DP Pictures" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Pictures.jpg" alt="Best Gf Bf Whatsapp DP Pictures" width="540" height="927" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18583" title="Best Gf Bf Whatsapp DP Wallapper Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Wallapper-Images.jpg" alt="Best Gf Bf Whatsapp DP Wallapper Images" width="444" height="442" /><div class='code-block code-block-11' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18584" title="Best Gf Bf Whatsapp DP Wallpaper Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Wallpaper-Free.jpg" alt="Best Gf Bf Whatsapp DP Wallpaper Free" width="620" height="624" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18585" title="Best Gf Bf Whatsapp DP Wallpaper" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP-Wallpaper.jpg" alt="Best Gf Bf Whatsapp DP Wallpaper" width="658" height="807" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18589" title="Best Gf Bf Whatsapp DP" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Best-Gf-Bf-Whatsapp-DP.jpg" alt="Best Gf Bf Whatsapp DP" width="610" height="826" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18590" title="Gf Bf Whatsapp DP Download Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Download-Free.jpg" alt="Gf Bf Whatsapp DP Download Free" width="804" height="1122" /><div class='code-block code-block-12' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18594" title="Gf Bf Whatsapp DP Download Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Download-Hd-Free.jpg" alt="Gf Bf Whatsapp DP Download Hd Free" width="526" height="564" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18597" title="Gf Bf Whatsapp DP Download Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Download-Hd.jpg" alt="Gf Bf Whatsapp DP Download Hd" width="540" height="573" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18600" title="Gf Bf Whatsapp DP Download Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Download-Images.jpg" alt="Gf Bf Whatsapp DP Download Images" width="692" height="849" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18603" title="Gf Bf Whatsapp DP Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Free.jpg" alt="Gf Bf Whatsapp DP Free" width="446" height="550" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18604" title="Gf Bf Whatsapp DP Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Hd.jpg" alt="Gf Bf Whatsapp DP Hd" width="534" height="412" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18608" title="Gf Bf Whatsapp DP Images Download" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Download.jpg" alt="Gf Bf Whatsapp DP Images Download" width="486" height="538" /><div class='code-block code-block-13' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18611" title="Gf Bf Whatsapp DP Images Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Free.jpg" alt="Gf Bf Whatsapp DP Images Free" width="410" height="474" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18614" title="Gf Bf Whatsapp DP Images Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Hd-Free.jpg" alt="Gf Bf Whatsapp DP Images Hd Free" width="445" height="542" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18616" title="Gf Bf Whatsapp DP Images Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Hd.jpg" alt="Gf Bf Whatsapp DP Images Hd" width="436" height="500" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18624" title="Gf Bf Whatsapp DP Images Pics" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Pics.jpg" alt="Gf Bf Whatsapp DP Images Pics" width="700" height="843" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18625" title="Gf Bf Whatsapp DP Images Pictures" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Pictures.jpg" alt="Gf Bf Whatsapp DP Images Pictures" width="378" height="488" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18628" title="Gf Bf Whatsapp DP Images Wallpaper" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images-Wallpaper.jpg" alt="Gf Bf Whatsapp DP Images Wallpaper" width="711" height="848" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18630" title="Gf Bf Whatsapp DP Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Images.jpg" alt="Gf Bf Whatsapp DP Images" width="468" height="468" /><div class='code-block code-block-14' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18635" title="Gf Bf Whatsapp DP ownload" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-ownload.jpg" alt="Gf Bf Whatsapp DP ownload" width="720" height="984" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18636" title="Gf Bf Whatsapp DP Phoot Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Phoot-Hd.jpg" alt="Gf Bf Whatsapp DP Phoot Hd" width="403" height="493" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18639" title="Gf Bf Whatsapp DP Photo Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Photo-Free.jpg" alt="Gf Bf Whatsapp DP Photo Free" width="500" height="510" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18642" title="Gf Bf Whatsapp DP Photo Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Photo-Hd-Free.jpg" alt="Gf Bf Whatsapp DP Photo Hd Free" width="592" height="717" /></p>
+<p>&nbsp;</p>
+<p><a href="https://loveshayariimages.in/sad-girl-dp/">Sad Girl Whatsapp DP Photo</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18645" title="Gf Bf Whatsapp DP Photo Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Photo-Images.jpg" alt="Gf Bf Whatsapp DP Photo Images" width="390" height="500" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18647" title="Gf Bf Whatsapp DP Photo" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Photo.jpg" alt="Gf Bf Whatsapp DP Photo" width="466" height="608" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18654" title="Gf Bf Whatsapp DP Pics Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pics-Free.jpg" alt="Gf Bf Whatsapp DP Pics Free" width="711" height="870" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18656" title="Gf Bf Whatsapp DP Pics Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pics-Hd-Free.jpg" alt="Gf Bf Whatsapp DP Pics Hd Free" width="600" height="546" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18659" title="Gf Bf Whatsapp DP Pics Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pics-Hd.jpg" alt="Gf Bf Whatsapp DP Pics Hd" width="658" height="612" /><div class='code-block code-block-15' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18664" title="Gf Bf Whatsapp DP Pics Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pics-Images.jpg" alt="Gf Bf Whatsapp DP Pics Images" width="658" height="632" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18665" title="Gf Bf Whatsapp DP Pics" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pics.jpg" alt="Gf Bf Whatsapp DP Pics" width="447" height="476" /><div class='code-block code-block-16' style='margin: 8px auto; text-align: center; display: block; clear: both;'>
+<script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18668" title="Gf Bf Whatsapp DP Pictures Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pictures-Free.jpg" alt="Gf Bf Whatsapp DP Pictures Free" width="634" height="600" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18674" title="Gf Bf Whatsapp DP Pictures Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pictures-Hd-Free.jpg" alt="Gf Bf Whatsapp DP Pictures Hd Free" width="500" height="765" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18676" title="Gf Bf Whatsapp DP Pictures Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pictures-Hd.jpg" alt="Gf Bf Whatsapp DP Pictures Hd" width="584" height="608" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18683" title="Gf Bf Whatsapp DP Pictures Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pictures-Images.jpg" alt="Gf Bf Whatsapp DP Pictures Images" width="727" height="618" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18688" title="Gf Bf Whatsapp DP Pictures" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Pictures.jpg" alt="Gf Bf Whatsapp DP Pictures" width="557" height="610" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18695" title="Gf Bf Whatsapp DP Wallpaper Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Wallpaper-Free.jpg" alt="Gf Bf Whatsapp DP Wallpaper Free" width="666" height="646" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18697" title="Gf Bf Whatsapp DP Wallpaper Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Wallpaper-Hd-Free.jpg" alt="Gf Bf Whatsapp DP Wallpaper Hd Free" width="500" height="554" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18698" title="Gf Bf Whatsapp DP Wallpaper Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Wallpaper-Images.jpg" alt="Gf Bf Whatsapp DP Wallpaper Images" width="456" height="437" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18711" title="Gf Bf Whatsapp DP Wllpaper Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP-Wllpaper-Hd.jpg" alt="Gf Bf Whatsapp DP Wllpaper Hd" width="656" height="834" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18716" title="Gf Bf Whatsapp DP" src="https://loveshayariimages.in/wp-content/uploads/2021/06/Gf-Bf-Whatsapp-DP.jpg" alt="Gf Bf Whatsapp DP" width="371" height="516" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18720" title="New Gf Bf Whatsapp DP Download Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Download-Free.jpg" alt="New Gf Bf Whatsapp DP Download Free" width="423" height="500" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18727" title="New Gf Bf Whatsapp DP Download Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Download-Hd-Free.jpg" alt="New Gf Bf Whatsapp DP Download Hd Free" width="500" height="558" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18730" title="New Gf Bf Whatsapp DP Download Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Download-Hd.jpg" alt="New Gf Bf Whatsapp DP Download Hd" width="500" height="632" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18732" title="New Gf Bf Whatsapp DP Download Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Download-Images.jpg" alt="New Gf Bf Whatsapp DP Download Images" width="340" height="381" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18734" title="New Gf Bf Whatsapp DP Download" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Download.jpg" alt="New Gf Bf Whatsapp DP Download" width="708" height="774" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18738" title="New Gf Bf Whatsapp DP Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Free.jpg" alt="New Gf Bf Whatsapp DP Free" width="600" height="544" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18740" title="New Gf Bf Whatsapp DP Hd Free Download" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Hd-Free-Download.jpg" alt="New Gf Bf Whatsapp DP Hd Free Download" width="361" height="432" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18744" title="New Gf Bf Whatsapp DP Hd FRee Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Hd-FRee-Images.jpg" alt="New Gf Bf Whatsapp DP Hd FRee Images" width="374" height="509" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18749" title="New Gf Bf Whatsapp DP Hd Free Photo" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Hd-Free-Photo.jpg" alt="New Gf Bf Whatsapp DP Hd Free Photo" width="443" height="514" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18758" title="New Gf Bf Whatsapp DP Hd Free Pictures" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Hd-Free-Pictures.jpg" alt="New Gf Bf Whatsapp DP Hd Free Pictures" width="508" height="744" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18762" title="New Gf Bf Whatsapp DP Hd Free wallpaper" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Hd-Free-wallpaper.jpg" alt="New Gf Bf Whatsapp DP Hd Free wallpaper" width="768" height="857" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18768" title="New Gf Bf Whatsapp DP Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Hd.jpg" alt="New Gf Bf Whatsapp DP Hd" width="640" height="636" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18772" title="New Gf Bf Whatsapp DP Images Download" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Download.jpg" alt="New Gf Bf Whatsapp DP Images Download" width="475" height="346" /></p>
+<p>&nbsp;</p>
+<p><a href="https://loveshayariimages.in/profile-images/">Profile Pics Download</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18776" title="New Gf Bf Whatsapp DP Images Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Free.jpg" alt="New Gf Bf Whatsapp DP Images Free" width="400" height="502" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18782" title="New Gf Bf Whatsapp DP Images Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Hd-Free.jpg" alt="New Gf Bf Whatsapp DP Images Hd Free" width="408" height="421" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18786" title="New Gf Bf Whatsapp DP Images Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Hd.jpg" alt="New Gf Bf Whatsapp DP Images Hd" width="393" height="486" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18797" title="New Gf Bf Whatsapp DP Images Photo" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Photo.jpg" alt="New Gf Bf Whatsapp DP Images Photo" width="1600" height="2039" /></p>
+<p>&nbsp;</p>
+<p><a href="https://loveshayariimages.in/dp-for-boys-attitude/">Attitude Whatsapp DP Wallpaper</a></p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18801" title="New Gf Bf Whatsapp DP Images Pics" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Pics.jpg" alt="New Gf Bf Whatsapp DP Images Pics" width="450" height="530" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18803" title="New Gf Bf Whatsapp DP Images Wallpaper" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images-Wallpaper.jpg" alt="New Gf Bf Whatsapp DP Images Wallpaper" width="568" height="612" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18806" title="New Gf Bf Whatsapp DP Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Images.jpg" alt="New Gf Bf Whatsapp DP Images" width="536" height="700" /></p>
+<p>&nbsp;</p>
+<p><a href="https://loveshayariimages.in/whatsapp-dp-for-boys/">Whataapp DP For Boys</a></p>
+<p><img loading="lazy" class="aligncenter wp-image-18810" title="New Gf Bf Whatsapp DP Photo Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Photo-Free.jpg" alt="New Gf Bf Whatsapp DP Photo Free" width="779" height="643" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18813" title="New Gf Bf Whatsapp DP Photo Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Photo-Hd-Free.jpg" alt="New Gf Bf Whatsapp DP Photo Hd Free" width="308" height="360" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18815" title="New Gf Bf Whatsapp DP Photo Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Photo-Hd.jpg" alt="New Gf Bf Whatsapp DP Photo Hd" width="563" height="646" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18817" title="New Gf Bf Whatsapp DP Photo Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Photo-Images.jpg" alt="New Gf Bf Whatsapp DP Photo Images" width="444" height="477" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter wp-image-18821" title="New Gf Bf Whatsapp DP Photo" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Photo.jpg" alt="New Gf Bf Whatsapp DP Photo" width="742" height="890" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18827" title="New Gf Bf Whatsapp DP Pics Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pics-Free.jpg" alt="New Gf Bf Whatsapp DP Pics Free" width="536" height="738" /></p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18831" title="New Gf Bf Whatsapp DP Pics Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pics-Hd-Free.jpg" alt="New Gf Bf Whatsapp DP Pics Hd Free" width="332" height="400" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18836" title="New Gf Bf Whatsapp DP Pics Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pics-Hd.jpg" alt="New Gf Bf Whatsapp DP Pics Hd" width="720" height="770" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18843" title="New Gf Bf Whatsapp DP Pics" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pics.jpg" alt="New Gf Bf Whatsapp DP Pics" width="750" height="891" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18852" title="New Gf Bf Whatsapp DP Pictures Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pictures-Hd-Free.jpg" alt="New Gf Bf Whatsapp DP Pictures Hd Free" width="800" height="904" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18853" title="New Gf Bf Whatsapp DP Pictures Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pictures-Hd.jpg" alt="New Gf Bf Whatsapp DP Pictures Hd" width="524" height="633" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18856" title="New Gf Bf Whatsapp DP Pictures" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Pictures.jpg" alt="New Gf Bf Whatsapp DP Pictures" width="593" height="524" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18863" title="New Gf Bf Whatsapp DP Wallapper" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Wallapper.jpg" alt="New Gf Bf Whatsapp DP Wallapper" width="750" height="803" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18867" title="New Gf Bf Whatsapp DP Wallpape free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Wallpape-free.jpg" alt="New Gf Bf Whatsapp DP Wallpape free" width="564" height="530" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18870" title="New Gf Bf Whatsapp DP Wallpaper Hd Free" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Wallpaper-Hd-Free.jpg" alt="New Gf Bf Whatsapp DP Wallpaper Hd Free" width="408" height="510" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18874" title="New Gf Bf Whatsapp DP Wallpaper Hd" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Wallpaper-Hd.jpg" alt="New Gf Bf Whatsapp DP Wallpaper Hd" width="281" height="447" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18877" title="New Gf Bf Whatsapp DP Wallpaper Images" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP-Wallpaper-Images.jpg" alt="New Gf Bf Whatsapp DP Wallpaper Images" width="750" height="997" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img loading="lazy" class="aligncenter size-full wp-image-18880" title="New Gf Bf Whatsapp DP" src="https://loveshayariimages.in/wp-content/uploads/2021/06/New-Gf-Bf-Whatsapp-DP.jpg" alt="New Gf Bf Whatsapp DP" width="433" height="451" /></p>
+<p>&nbsp;</p>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+			jQuery(document).ready(function( $) {
+				$.post( 'https://loveshayariimages.in/wp-admin/admin-ajax.php', {action: 'mts_view_count', id: '18503'});
+			});
+			});</script><div id="snippet-box" class="snippet-type-10" style="background:#F5F5F5; color:#333333; border:1px solid #ACACAC;"><div class="snippet-title" style="background:#E4E4E4; color:#333333; border-bottom:1px solid #ACACAC;">Summary</div><div itemscope itemtype="https://schema.org/Article"><div class="snippet-image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject"><img width="180" src="https://loveshayariimages.in/wp-content/uploads/2021/07/Whatsapp-Dp-Profile-Images-1.jpg" alt="[ New 2021 ] Girlfriend &amp; Boyfriend Whatsapp DP Images HD" /><meta itemprop="url" content="https://loveshayariimages.in/wp-content/uploads/2021/07/Whatsapp-Dp-Profile-Images-1.jpg"></div><div class="aio-info"><div class="snippet-label-img">Article Name</div><div class="snippet-data-img"><span itemprop="headline">[ New 2021 ] Girlfriend &amp; Boyfriend Whatsapp DP Images HD</span></div><div class="snippet-clear"></div><div class="snippet-label-img">Description</div><div class="snippet-data-img"><span itemprop="description">Find Out Free Girlfriend &amp; Boyfriend Whatsapp DP Profile Images Pics Pictures , Girlfriend &amp; Boyfriend Whatsapp DP Wallpaper photo Download .</span></div><div class="snippet-clear"></div><div class="snippet-label-img">Author</div><div class="snippet-data-img" itemprop="author" itemscope itemtype="https://schema.org/Person">
+<span itemprop="name">Saanavi Singh</span>
+</div>
+<div class="snippet-clear"></div><div itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><div class="snippet-label-img">Publisher Name</div><div class="snippet-data-img">
+<span itemprop="name">Saanavi Singh</span>
+</div>
+<div class="snippet-clear"></div><div class="snippet-label-img">Publisher Logo</div><div class="snippet-data-img publisher-logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"><img width="180" src="https://loveshayariimages.in/wp-content/uploads/2020/09/logo.png" alt="Saanavi Singh" /><meta itemprop="url" content="https://loveshayariimages.in/wp-content/uploads/2020/09/logo.png"></div></div><meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/" /><meta itemprop="datePublished" content="2022-05-30T00:00:01+00:00" /><meta itemprop="dateModified" content="2022-05-30T03:09:17+00:00" /></div>
+</div></div><div class="snippet-clear"></div>
+</div>
+<div class="shareit floating"> 
+<span class="share-item facebooksharebtn">
+<div class="fb-share-button" data-layout="button_count"></div>
+</span>
+
+<span class="share-item facebookbtn">
+<div id="fb-root"></div>
+<div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false"></div>
+</span>
+
+<span class="share-item twitterbtn">
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="">Tweet</a>
+</span>
+
+<span class="share-item pinbtn">
+<a href="https://www.pinterest.com/pin/create/button/?url=https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/&media=&description=[ New 2022 ] Girlfriend &#038; Boyfriend Whatsapp DP Images HD" data-pin-media="" data-pin-do="buttonPin" data-pin-count="beside" data-pin-config="beside" class="pin-it-button">Pin It</a>
+</span>
+</div> </div>
+</div>
+<div class="related-posts"><h4>Related Posts</h4><div class="clear"> <article class="latestPost excerpt">
+<a href="https://loveshayariimages.in/judai-shayari-images/" title="1568+ Best Judai Shayari Images Download For Whatsapp" id="featured-thumbnail">
+<div class="featured-thumbnail"><img width="185" height="150" src="https://loveshayariimages.in/wp-content/uploads/2020/09/Judai-Shayari-Images-93.jpg" class="attachment-schema-related size-schema-related wp-post-image" alt="1568+ Best Judai Shayari Images Download For Whatsapp" loading="lazy" title="1568+ Best Judai Shayari Images Download For Whatsapp" /></div> </a>
+<header>
+<h2 class="title front-view-title"><a href="https://loveshayariimages.in/judai-shayari-images/" title="1568+ Best Judai Shayari Images Download For Whatsapp">1568+ Best Judai Shayari Images Download For Whatsapp</a></h2>
+</header>
+</article>
+<article class="latestPost excerpt">
+<a href="https://loveshayariimages.in/maut-shayari/" title="100+ Maut Shayari | Maut Shayari In Hindi Images Download" id="featured-thumbnail">
+<div class="featured-thumbnail"><img width="211" height="142" src="https://loveshayariimages.in/wp-content/uploads/2020/09/Maut-Shayari-Images-92.jpg" class="attachment-schema-related size-schema-related wp-post-image" alt="100+ Maut Shayari | Maut Shayari In Hindi Images Download" loading="lazy" title="100+ Maut Shayari | Maut Shayari In Hindi Images Download" /></div> </a>
+<header>
+<h2 class="title front-view-title"><a href="https://loveshayariimages.in/maut-shayari/" title="100+ Maut Shayari | Maut Shayari In Hindi Images Download">100+ Maut Shayari | Maut Shayari In Hindi Images Download</a></h2>
+</header>
+</article>
+<article class="latestPost excerpt last">
+<a href="https://loveshayariimages.in/love-shayari-images/" title="658+ Beautiful {New } Love Shayari Images HD Collection 2022" id="featured-thumbnail">
+<div class="featured-thumbnail"><img width="201" height="150" src="https://loveshayariimages.in/wp-content/uploads/2020/09/Love-Shayari-Images-85.jpg" class="attachment-schema-related size-schema-related wp-post-image" alt="658+ Beautiful {New } Love Shayari Images HD Collection 2022" loading="lazy" title="658+ Beautiful {New } Love Shayari Images HD Collection 2022" /></div> </a>
+<header>
+<h2 class="title front-view-title"><a href="https://loveshayariimages.in/love-shayari-images/" title="658+ Beautiful {New } Love Shayari Images HD Collection 2022">658+ Beautiful {New } Love Shayari Images HD Collection 2022</a></h2>
+</header>
+</article>
+</div></div> <div class="postauthor">
+<h4>About The Author</h4>
+<img alt='' src='https://secure.gravatar.com/avatar/f7b17261f7379a325c3b142f5a93b8e3?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/f7b17261f7379a325c3b142f5a93b8e3?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <h5 class="vcard author"><a href="https://loveshayariimages.in/author/admin/" class="fn">Jyoti Rajput</a></h5>
+<p></p>
+</div>
+</div>
+<div id="comments">
+<h4 class="total-comments">2 Comments</h4>
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="li-comment-643">
+<div id="comment-643" itemscope itemtype="http://schema.org/UserComments">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/b3ae02ae56ab3a84aa0fb346717449f8?s=80&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/b3ae02ae56ab3a84aa0fb346717449f8?s=160&#038;d=mm&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy' /> <span class="fn" itemprop="creator" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Joan</span></span> <span class="ago">November 8, 2021</span>
+<span class="comment-meta">
+</span>
+</div>
+<div class="commentmetadata">
+<div class="commenttext" itemprop="commentText">
+<p>They r so beautiful 😢</p>
+</div>
+<div class="reply">
+<a rel='nofollow' class='comment-reply-link' href='https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/?replytocom=643#respond' data-commentid="643" data-postid="18503" data-belowelement="comment-643" data-respondelement="respond" data-replyto="Reply to Joan" aria-label='Reply to Joan'>Reply</a> </div>
+</div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-898">
+<div id="comment-898" itemscope itemtype="http://schema.org/UserComments">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/f7b17261f7379a325c3b142f5a93b8e3?s=80&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/f7b17261f7379a325c3b142f5a93b8e3?s=160&#038;d=mm&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy' /> <span class="fn" itemprop="creator" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jyoti Rajput</span></span> <span class="ago">February 1, 2022</span>
+<span class="comment-meta">
+</span>
+</div>
+<div class="commentmetadata">
+<div class="commenttext" itemprop="commentText">
+<p>Thanks Joan</p>
+</div>
+<div class="reply">
+<a rel='nofollow' class='comment-reply-link' href='https://loveshayariimages.in/girlfriend-boyfriend-whatsapp-dp/?replytocom=898#respond' data-commentid="898" data-postid="18503" data-belowelement="comment-898" data-respondelement="respond" data-replyto="Reply to Jyoti Rajput" aria-label='Reply to Jyoti Rajput'>Reply</a> </div>
+</div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="commentsAdd">
+<div id="respond" class="box m-t-6">
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/girlfriend-boyfriend-whatsapp-dp/#respond" style="display:none;">Cancel Reply</a></small></h3><form action="https://loveshayariimages.in/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="6" aria-required="true" placeholder="Comment Text*"></textarea></p><p class="comment-form-author"><input id="author" name="author" aria-required="true" placeholder="Name*" size="35"></input></p>
+<p class="comment-form-email"><input id="email" name="email" aria-required="true" placeholder="Email*" size="35"></input></p>
+<p class="comment-form-url"><input id="url" name="url" placeholder="Website" size="35"></input></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='18503' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p></form> </div>
+</div>
+</div>
+</div>
+</article>
+<aside id="sidebar" class="sidebar c-4-12 mts-sidebar-sidebar" role="complementary" itemscope itemtype="http://schema.org/WPSideBar">
+<div id="text-11" class="widget widget_text"> <div class="textwidget"><p><script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><br />
+<br />
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins><br />
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+</div><div id="text-6" class="widget widget_text"> <div class="textwidget"><ul>
+<li><a href="https://loveshayariimages.in/cute-girls-whatsapp-dp/">Girl Pic</a></li>
+<li><a href="https://loveshayariimages.in/s-letter-whatsapp-dp/">S Name Photo</a></li>
+<li><a href="https://loveshayariimages.in/attitude-dp/">Attitude Dp</a></li>
+<li><a href="https://loveshayariimages.in/alone-dp-images-download/">Alone Dp</a></li>
+<li><a href="https://loveshayariimages.in/black-whatsapp-dp/">Black Dp</a></li>
+<li><a href="https://loveshayariimages.in/peaceful-dp-for-whatsapp/">Dp Pics</a></li>
+<li><a href="https://loveshayariimages.in/cool-whatsapp-dp-images-hd/">Cool Dp</a></li>
+<li><a href="https://loveshayariimages.in/whatsapp-dp-for-boys-girls/">Sad Dp For Whatsapp</a></li>
+<li><a href="https://loveshayariimages.in/most-beautiful-dp-for-whatsapp/">Beautiful Dp For Whatsapp</a></li>
+<li><a href="https://loveshayariimages.in/best-dp/">Best Dp</a></li>
+<li><a href="https://loveshayariimages.in/beautiful-boys-dp-for-whatsapp/">Boys Dp</a></li>
+<li><a href="https://loveshayariimages.in/whatsapp-dp/">WhatsAap DP</a></li>
+<li><a href="https://loveshayariimages.in/friends-dp/">Friends Group Dp </a></li>
+<li><a href="https://loveshayariimages.in/shinchan-images-for-whatsapp-dp/">Shinchan Photos</a></li>
+<li><a href="https://loveshayariimages.in/sad-dp/">Sad DP</a></li>
+<li><a href="https://loveshayariimages.in/mood-off-dp-for-whatsapp-profile/">Mood Off DP</a></li>
+<li><a href="https://loveshayariimages.in/cute-whatsapp-dp-2/">Cute Whatsapp Dp </a></li>
+<li><a href="https://loveshayariimages.in/whatsapp-dp-new/">Whatsaap DP Images</a></li>
+<li><a href="https://loveshayariimages.in/peaceful-dp-for-whatsapp/">Whatsapp Dp Pic</a></li>
+<li><a href="https://loveshayariimages.in/cute-baby-boys-girls-whatsapp-dp/">Baby Dp </a></li>
+<li><a href="https://loveshayariimages.in/hanuman-ji/">Hanuman Ji Images</a></li>
+<li><a href="https://loveshayariimages.in/whatsapp-dp-happiness/">Happy Dp </a></li>
+<li><a href="https://loveshayariimages.in/good-morning-images/">Good Morning Images</a></li>
+<li><a href="https://loveshayariimages.in/joker-dp/">Joker Images</a></li>
+<li><a href="https://loveshayariimages.in/radha-krishna-serial-images/">Radha Krishna Serial Images </a></li>
+<li><a href="https://loveshayariimages.in/single-boy-dp/">Single Boy DP</a></li>
+<li><a href="https://loveshayariimages.in/i-love-you-mom-and-dad-whatsapp-dp-images/">Mom Dad DP For Whatsapp</a></li>
+<li><a href="https://loveshayariimages.in/god-dp-for-whatsapp/">God Images</a></li>
+<li><a href="https://loveshayariimages.in/dp-ke-liye-photo/">DP Ke Liye DP</a></li>
+<li><a href="https://loveshayariimages.in/m-name-dp-for-whatsapp/">M Name DP</a></li>
+<li><a href="https://loveshayariimages.in/cartoon-sad-dp/">Cartoon DP</a></li>
+<li><a href="https://loveshayariimages.in/royal-4k-nice-whatsapp-dp/">Nice Whatsapp DP</a></li>
+<li><a href="https://loveshayariimages.in/download-images-whatsapp-dp/">New Whatsapp DP</a></li>
+<li><a href="https://loveshayariimages.in/ahir-yadav-ji-whatsapp-dp/">Yadav Ji Whatsapp DP</a></li>
+<li><a href="https://loveshayariimages.in/mehndi-design-for-boys/">Mehndi Designs For Boys </a></li>
+<li><a href="https://loveshayariimages.in/flower-whatsapp-dp/">Flower Images</a></li>
+<li><a href="https://loveshayariimages.in/profile-images/">Profile Images</a></li>
+<li><a href="https://loveshayariimages.in/beautiful-boys-dp-for-whatsapp/">Boy DP</a></li>
+<li><a href="https://loveshayariimages.in/">Shayari</a></li>
+<li><a href="https://loveshayariimages.in/alone-sad-boy-dp-for-whatsapp/">Sad Boy DP</a></li>
+<li><a href="https://loveshayariimages.in/dp-for-girls-whatsapp/">DP For Girls</a></li>
+<li><a href="https://loveshayariimages.in/prabhas-wallpaper/">Prabhas Wallpaper</a></li>
+<li><a href="https://loveshayariimages.in/hindi-love-shayari/">Love shayari image</a></li>
+<li><a href="https://loveshayariimages.in/sad-shayari-images-english/">sad shayari image</a></li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+</div><div id="text-13" class="widget widget_text"> <div class="textwidget"><p><script type="rocketlazyloadscript" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7236376398704726" crossorigin="anonymous"></script><br />
+<br />
+<ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7236376398704726" data-ad-slot="3274892960" data-ad-format="auto" data-full-width-responsive="true"></ins><br />
+<script type="rocketlazyloadscript">
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+</div> </aside>
+</div>
+<footer id="site-footer" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
+<div class="copyrights">
+<div class="container">
+
+<div class="row" id="copyright-note">
+<span><a href=" https://loveshayariimages.in/" title=" ">12,000 Shayari Images ( हिंदी शायरी ) Wallpaper ideas in 2021</a> Copyright &copy; 2022.</span>
+<div class="to-top">Theme by <a href="http://mythemeshop.com/" rel="nofollow">MyThemeShop</a>&nbsp;</div>
+</div>
+
+</div>
+</div>
+</footer>
+</div>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-content/plugins/gp-premium/menu-plus/functions/js/sticky.min.js' id='generate-sticky-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill.min.js' id='wp-polyfill-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='wp-polyfill-js-after'>
+( 'fetch' in window ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js" defer></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js" defer></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js" defer></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-url.min.js" defer></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js" defer></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js" defer></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://loveshayariimages.in/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js" defer></scr' + 'ipt>' );
+</script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/loveshayariimages.in\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1656300338' id='contact-form-7-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/loveshayariimages.in","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://loveshayariimages.in/wp-includes/js/comment-reply.min.js' id='comment-reply-js' defer></script>
+<script type='text/javascript' id='customscript-js-extra'>
+/* <![CDATA[ */
+var mts_customscript = {"responsive":"1","nav_menu":"both","lazy_load":"","lazy_load_comments":"1","desktop_sticky":"0","mobile_sticky":"0"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' async="async" src='https://loveshayariimages.in/wp-content/cache/min/1/wp-content/themes/mts_schema/js/customscript.js?ver=1656300338' id='customscript-js'></script>
+<script type='text/javascript' src='https://loveshayariimages.in/wp-includes/js/wp-embed.min.js' id='wp-embed-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="flying-scripts">const loadScriptsTimer=setTimeout(loadScripts,2*1000);const userInteractionEvents=["mouseover","keydown","touchstart","touchmove","wheel"];userInteractionEvents.forEach(function(event){window.addEventListener(event,triggerScriptLoader,{passive:!0})});function triggerScriptLoader(){loadScripts();clearTimeout(loadScriptsTimer);userInteractionEvents.forEach(function(event){window.removeEventListener(event,triggerScriptLoader,{passive:!0})})}
+function loadScripts(){document.querySelectorAll("script[data-type='lazy']").forEach(function(elem){elem.setAttribute("src",elem.getAttribute("data-src"))})}</script>
+<script type="rocketlazyloadscript">"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%20Slab%3Anormal%7CRaleway%3A500%7CRaleway%3A700%7CRoboto%20Slab%3A300&#038;subset=latin&#038;display=swap" /><link rel="stylesheet" href="https://loveshayariimages.in/wp-content/cache/min/1/2f2c1e68875c8c32acb36897437591b2.css" media="all" data-minify="1" /></noscript></body>
+</html>
